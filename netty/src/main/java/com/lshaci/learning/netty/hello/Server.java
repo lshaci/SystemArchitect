@@ -1,4 +1,4 @@
-package com.lshaci.learning.netty;
+package com.lshaci.learning.netty.hello;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
