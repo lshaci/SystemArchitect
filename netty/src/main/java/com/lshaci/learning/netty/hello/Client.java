@@ -33,7 +33,7 @@ public class Client {
                 .sync();
 
         //buf
-        f.channel().writeAndFlush(Unpooled.copiedBuffer("777".getBytes()));
+        f.channel().writeAndFlush(Unpooled.copiedBuffer("你好".getBytes()));
         //Thread.sleep(1000000);
         f.channel().closeFuture().sync();
 

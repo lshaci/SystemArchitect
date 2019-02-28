@@ -23,15 +23,21 @@ public class Server {
         ChannelFuture f = b.group(bossGroup, workerGroup)
                 //我要指定使用NioServerSocketChannel这种类型的通道
                 .channel(NioServerSocketChannel.class)
+                // 设置TCP缓冲区大小
+                .option(ChannelOption.SO_BACKLOG, 128)
+                // 设置发送缓冲区大小32kb
+                .option(ChannelOption.SO_SNDBUF, 32 * 1024)
+                // 设置接收缓冲区大小32kb
+                .option(ChannelOption.SO_RCVBUF, 32 * 1024)
+                // 保持连接
+                .option(ChannelOption.SO_KEEPALIVE, true)
                 //一定要使用 childHandler 去绑定具体的 事件处理器
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel sc) throws Exception {
                         sc.pipeline().addLast(new ServerHandler());
                     }
-                }).option(ChannelOption.SO_BACKLOG, 128)
-                // 保持连接
-                .option(ChannelOption.SO_KEEPALIVE, true)
+                })
                 // 绑定指定的端口 进行监听
                 .bind(8765)
                 .sync();

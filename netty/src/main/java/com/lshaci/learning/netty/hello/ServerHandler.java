@@ -24,6 +24,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                     .addListener(ChannelFutureListener.CLOSE)
             ;
         } finally {
+            // 有写操作的时候会自动释放msg
             ReferenceCountUtil.release(msg);
         }
     }
